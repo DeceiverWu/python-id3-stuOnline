@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static '/css/datatables.css' %}">
+    <link rel="stylesheet" href="{% static '/bootstrap-4.1.0/css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="../../../../static/bootstrap-4.1.0/css/bootstrap.min.css"> -->
+    <title>Data Analysis</title>
+</head>
+<body>
+    <div class="container">
+        <div class="mt-3 border rounded">
+            <!-- tab header -->
+            <ul class="nav nav-tabs" id="mytab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="nav-single-tab" data-toggle="tab" href="#single" role="tab" aria-controls="single" aria-selected="true">数据录入</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="nav-batch-tab" data-toggle="tab" href="#batch" role="tab" aria-controls="batch" aria-selected="false">批量分析</a>
+                </li>
+            </ul>
+            <!-- tab pane -->
+            <div class="tab-content" id="dataContent">
+                <!-- single-analysis -->
+                <div class="tab-pane fade show active" id="single" role="tabpanel" aria-labelledby="nav-single-tab">
+                    <div class="card">
+                        <div class="card-header">学生学业信息预警分析</div>
+                        <div class="card-body">
+                            <form id="infoForm" onsubmit="return false">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mr-2" id="sNo">学号</span>
+                                    </div>
+                                    <input type="text" name="stuNo" id="stuNo" placeholder="例如: 1400002088" aria-describedby="sNo">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mr-2" id="sName">姓名</span>
+                                    </div>
+                                    <input type="text" name="stuName" id="stuName" placeholder="例如: 张三" aria-describedby="sName">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mr-2" id="sScore">入学成绩</span>
+                                    </div>
+                                    <input type="text" name="entrance_score" id="entrance_score" placeholder="输入范围: 0 ~ 100之间" aria-describedby="sScore" required>
+                                </div>
+                                <div class="form-group">                       
+                                    <label>家庭状况</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="family_status" id="family_status1" value="Poor">
+                                        <label class="form-check-label" for="family_status1">
+                                            困难
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="family_status" id="family_status2" value="Average" checked="checked">
+                                        <label class="form-check-label" for="family_status2">
+                                            普通
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="family_status" id="family_status3" value="Good">
+                                        <label class="form-check-label" for="family_status3">
+                                            富裕
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">                       
+                                    <label>考勤</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="attendance" id="attendance1" value="Poor">
+                                        <label class="form-check-label" for="family_status1">
+                                            极差
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="attendance" id="attendance2" value="Average" checked="checked">
+                                        <label class="form-check-label" for="family_status2">
+                                            一般
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="attendance" id="attendance3" value="Good">
+                                        <label class="form-check-label" for="family_status3">
+                                            优秀
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mr-2" id="sLearn">日常学习时间</span>
+                                    </div>
+                                    <input type="text" name="learn_time" id="learn_time" aria-describedby="sLearn" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mr-2" id="sPoint">平均绩点</span>
+                                    </div>
+                                    <input type="text" name="grade_point" id="grade_point" aria-describedby="sPoint" placeholder="例如: 3.6" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mr-2" id="sLScore">上学期综合成绩</span>
+                                    </div>
+                                    <input type="text" name="last_term_score" id="last_term_score" aria-describedby="sLScore" placeholder="输入范围: 0 ~ 100之间" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mr-2" id="sNScore">本学期综合成绩</span>
+                                    </div>
+                                    <input type="text" name="now_term_score" id="now_term_score" aria-describedby="sNScore" placeholder="输入范围: 0 ~ 100之间" required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text mr-2" id="mess">学生学业预测结果：</span>
+                                    </div>
+                                    <span class="text-danger" id="message" aria-describedby="mess"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button id="analysis" type="button" class="btn btn-lg btn-primary btn-block">预测</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- batch-analysis -->
+                <div class="tab-pane fade" id="batch" role="tabpanel" aria-labelledby="nav-batch-tab">
+                    <!-- <div class="card">
+                        <div class="card-header">学生信息批量处理</div>
+                        <div class="card-body">
+                            <form>
+
+                            </form>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="{% static '/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static '/bootstrap-4.1.0/js/bootstrap.min.js' %}"></script>
+    <!-- <script src="../../../../static/js/jquery-3.3.1.min.js"></script> -->
+    <!-- <script src="../../../../static/bootstrap-4.1.0/js/bootstrap.min.js"></script> -->
+    <script>
+        $(document).ready(function(){
+            $('#analysis').click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'content:get_warning_result' %}",
+                    data: $('#infoForm').serialize(),
+                    dataType: "json",
+                    success: function(msg){
+                        results = msg['result']
+                        if(results == '是')
+                            $('#message').html("预警,需要注意该学生学业状况。")
+                        else
+                            $('#message').html("该学生学业正常。")
+                    },
+                    error: function(){
+                        alert("请完整输入所有值！")
+                    }
+                })
+            });
+        });
+    </script>
+</body>
+</html>

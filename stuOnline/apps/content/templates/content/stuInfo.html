@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static '/css/datatables.css' %}">
+    <link rel="stylesheet" href="{% static '/bootstrap-4.1.0/css/bootstrap.min.css' %}">
+    <title>StudentInfo</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="mt-3">
+            <table id="table_id" class="table table-hover" width="100%">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">学号</th>
+                        <th scope="col">姓名</th>
+                        <th scope="col">年龄</th>
+                        <th scope="col">性别</th>
+                        <th scope="col">民族</th>
+                        <th scope="col">学院</th>
+                        <th scope="col">专业</th>
+                        <th scope="col">班级</th>
+                        <th scope="col">年级</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <script src="{% static '/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static '/js/datatables.js' %}"></script>
+    <script src="{% static '/bootstrap-4.1.0/js/bootstrap.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#table_id').DataTable({
+                language: {
+                    "sZeroRecords": "没有匹配结果",
+                    "sLengthMenu": "显示 _MENU_ 项结果",
+                    "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                    "sSearch": "搜索:",
+                    "sInfoFiltered": "(从 _MAX_ 项结果中过滤)"
+                },
+                // data: data
+                ajax: {
+                    url: "{% url 'content:get_stu' %}",
+                    type: 'GET'
+                },
+                columns: [
+                    {data: 'id'},
+                    {data: 'stuNo'},
+                    {data: 'stuName'},
+                    {data: 'age'},
+                    {data: 'gender'},
+                    {data: 'nation'},
+                    {data: 'academy'},
+                    {data: 'major'},
+                    {data: 'stuClass'},
+                    {data: 'stuGrade'},
+                ]
+            });
+
+        });
+    </script>
+</body>
+</html>

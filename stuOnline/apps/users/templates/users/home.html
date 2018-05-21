@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static '/bootstrap-4.1.0/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/datatables.css' %}">
+    <link rel="stylesheet" href="{% static '/bootstrap-fileinput/css/fileinput.min.css' %}">
+
+    <title>DataTables</title>
+</head>
+<body>
+    
+    <!--<div class="container mt-2">-->
+        <!--<input type="file" class="file-loading" name="file" id="inputFile" data-show-preview="false">-->
+    <!--</div>-->
+
+    <script src="{% static '/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static '/bootstrap-fileinput/js/fileinput.min.js' %}"></script>
+    <script src="{% static '/js/popper.min.js' %}"></script>
+    <script src="{% static '/bootstrap-4.1.0/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/bootstrap-fileinput/js/locales/zh.js' %}"></script>
+    <!--<script src="{% static '/js/datatables.js' %}"></script>-->
+    <!--<script>-->
+        <!--$(document).ready(function(){-->
+            <!--$('#inputFile').fileinput({-->
+                <!--language: 'zh',-->
+                <!--previewFileType: 'any',-->
+                <!--allowedFileExtensions: ["jpg", "png", "gif", "txt"],-->
+                <!--uploadUrl: "{% url 'content:get_file' %}",-->
+                <!--enctype: 'multipart/form-data',-->
+            <!--}).on('fileuploaded', function(event, data, previewId, index){-->
+                <!--if(data.response){  -->
+                    <!--console.log(data.response['result']);-->
+                    <!--alert(data.response['result']);-->
+                <!--} -->
+            <!--})-->
+        <!--})-->
+    <!--</script>-->
+</body>
+</html>
